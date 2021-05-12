@@ -13,3 +13,7 @@ git clone https://github.com/aa65535/openwrt-simple-obfs.git package/simple-obfs
 make menuconfig
 # 开始编译
 make package/simple-obfs/compile V=99
+
+<h1 align="center">
+  <a href="https://pypi.org/project/xchange-mail/"><img src="https://i.imgur.com/ISexIyT.png" alt="xchange_mail logo"></a>
+</h1>
