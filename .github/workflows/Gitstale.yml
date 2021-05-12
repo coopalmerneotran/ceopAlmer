@@ -1,9 +1,12 @@
 name: Mark stale issues and pull requests
-
 on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
   schedule:
-  - cron: "0 10 * * *"
-
+     - cron: "0 12 * * *"
 jobs:
   stale:
 
